@@ -212,20 +212,40 @@
         font-weight: 700;
       }
 
-      /* Section 6 - Photo avec chapeau */
+      /* Section 6 - Photo et Carrousel */
       .six {
         position: relative;
         top: 0;
         z-index: 1;
       }
 
-      .six .profile-picture {
+      /* NOUVEAU STYLE POUR LE CONTENEUR CARROUSEL */
+      .carousel-container {
         width: 300px;
         height: 300px;
         border-radius: 50%;
-        object-fit: cover;
         border: 8px solid rgba(255, 255, 255, 0.3);
         box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden; /* Important pour garder les images dans le cercle */
+        margin: 0 auto; /* Centrer */
+      }
+
+      /* STYLE DES DIAPOSITIVES INDIVIDUELLES */
+      .carousel-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        opacity: 0; /* Caché par défaut */
+      }
+
+      /* La première image est visible au départ */
+      .carousel-slide:nth-child(1) {
+        opacity: 1;
       }
 
       .six .hat {
@@ -236,6 +256,7 @@
         width: 120px;
         height: auto;
         filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+        z-index: 10; /* Le chapeau doit être au-dessus du carrousel */
       }
 
       .wish {
@@ -391,7 +412,7 @@
         .idea-6 {
           font-size: 8rem;
         }
-        .six .profile-picture {
+        .carousel-container {
           width: 200px;
           height: 200px;
         }
@@ -411,11 +432,11 @@
     </style>
   </head>
   <body>
-    <!-- Particules de fond -->
     <div class="particles" id="particles"></div>
 
+    <audio id="hbdSong" src="/music/music.mp3" loop></audio>
+
     <div class="container">
-      <!-- Section 1 -->
       <div class="one">
         <h1 class="one">
           Salut
@@ -424,12 +445,10 @@
         <p class="two" id="greetingText">J'adore vraiment ton prénom !</p>
       </div>
 
-      <!-- Section 3 -->
       <div class="three">
         <p>C'est ton anniversaire!! :D</p>
       </div>
 
-      <!-- Section 4 -->
       <div class="four">
         <div class="text-box">
           <p class="hbd-chatbox">
@@ -442,7 +461,6 @@
         </div>
       </div>
 
-      <!-- Section 5 -->
       <div class="five">
         <p class="idea-1">C'est ce que j'allais faire.</p>
         <p class="idea-2">Mais ensuite j'ai arrêté.</p>
@@ -464,14 +482,27 @@
         </p>
       </div>
 
-      <!-- Section 6 -->
       <div class="six">
-        <img
-          src="/image/mel1.jpeg"
-          alt="profile"
-          class="profile-picture"
-          id="imagePath"
-        />
+        <div class="carousel-container profile-picture">
+          <div
+            class="carousel-slide"
+            style="
+              background-image: url('https://source.unsplash.com/random/300x300?happy,woman');
+            "
+          ></div>
+          <div
+            class="carousel-slide"
+            style="
+              background-image: url('https://source.unsplash.com/random/300x300?birthday,cake');
+            "
+          ></div>
+          <div
+            class="carousel-slide"
+            style="
+              background-image: url('https://source.unsplash.com/random/300x300?party,friends');
+            "
+          ></div>
+        </div>
 
         <svg
           class="hat"
@@ -491,12 +522,10 @@
         </div>
       </div>
 
-      <!-- Section 7 - Ballons -->
       <div class="seven">
         <div class="baloons" id="balloonsContainer"></div>
       </div>
 
-      <!-- Section 8 - Confettis -->
       <div class="eight">
         <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" /></svg>
         <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" /></svg>
@@ -509,7 +538,6 @@
         <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" /></svg>
       </div>
 
-      <!-- Section 9 -->
       <div class="nine">
         <p>Maintenant, reviens me dire si tu as aimé.</p>
         <p id="replay">Ou clique ici si tu veux le revoir.</p>
@@ -517,9 +545,7 @@
       </div>
     </div>
 
-    <!-- GSAP Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
-    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
@@ -568,6 +594,43 @@
       createParticles();
       createBalloons();
 
+      // --- NOUVELLE LOGIQUE DU CARROUSEL ---
+      let carouselTimer; // Pour stocker le minuteur
+
+      const rotateCarousel = () => {
+        const slides = document.querySelectorAll(".carousel-slide");
+        // Trouver la diapositive actuellement visible (celle avec opacity: 1)
+        let activeIndex = Array.from(slides).findIndex(
+          (slide) => getComputedStyle(slide).opacity === "1"
+        );
+
+        // Sécurité : si aucune n'est active, on prend la première
+        if (activeIndex === -1) activeIndex = 0;
+
+        // Calculer l'index de la prochaine (revient à 0 après la dernière)
+        let nextIndex = (activeIndex + 1) % slides.length;
+
+        // Animation GSAP de transition (Cross-fade avec léger zoom)
+        // 1. Faire disparaître l'actuelle en zoomant un peu
+        gsap.to(slides[activeIndex], {
+          duration: 2,
+          opacity: 0,
+          scale: 1.1,
+          ease: "power2.inOut",
+        });
+
+        // 2. Faire apparaître la suivante (qui est en dessous)
+        gsap.fromTo(
+          slides[nextIndex],
+          { opacity: 0, scale: 1 }, // Départ
+          { duration: 2, opacity: 1, scale: 1, ease: "power2.inOut" } // Arrivée
+        );
+
+        // Relancer la rotation après 4 secondes
+        carouselTimer = setTimeout(rotateCarousel, 4000);
+      };
+      // ------------------------------------
+
       // Démarrage avec SweetAlert
       window.addEventListener("load", () => {
         Swal.fire({
@@ -581,11 +644,19 @@
           background: "rgba(255, 255, 255, 0.95)",
           backdrop: "rgba(0, 0, 0, 0.4)",
         }).then((result) => {
+          if (result.isConfirmed) {
+            document
+              .getElementById("hbdSong")
+              .play()
+              .catch((error) => {
+                console.log("Lecture automatique bloquée", error);
+              });
+          }
           animationTimeline();
         });
       });
 
-      // Animation Timeline
+      // Animation Timeline Principale
       const animationTimeline = () => {
         const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
         const hbd = document.getElementsByClassName("wish-hbd")[0];
@@ -603,7 +674,6 @@
           rotationX: 5,
           skewX: "15deg",
         };
-
         const ideaTextTransLeave = {
           opacity: 0,
           y: 20,
@@ -664,18 +734,8 @@
             opacity: 0,
             delay: 1.5,
           })
-          .to(".idea-5 span", {
-            duration: 0.7,
-            rotation: 90,
-            x: 8,
-            delay: 1.4,
-          })
-          .to(".idea-5", {
-            duration: 0.7,
-            scale: 0.2,
-            opacity: 0,
-            delay: 2,
-          })
+          .to(".idea-5 span", { duration: 0.7, rotation: 90, x: 8, delay: 1.4 })
+          .to(".idea-5", { duration: 0.7, scale: 0.2, opacity: 0, delay: 2 })
           .from(".idea-6 span", {
             duration: 0.8,
             scale: 3,
@@ -694,13 +754,11 @@
           .fromTo(
             ".baloons .balloon",
             { opacity: 0.9, y: window.innerHeight },
-            {
-              duration: 2.5,
-              opacity: 1,
-              y: -window.innerHeight,
-              stagger: 0.2,
-            }
+            { duration: 2.5, opacity: 1, y: -window.innerHeight, stagger: 0.2 }
           )
+
+          // --- MODIFICATION ICI POUR LE CARROUSEL ---
+          // On anime le conteneur .profile-picture (qui contient maintenant le carrousel)
           .from(
             ".profile-picture",
             {
@@ -710,9 +768,16 @@
               x: 25,
               y: -25,
               rotationZ: -45,
+              // C'est ici le secret : quand cette animation se termine, on lance le carrousel
+              onComplete: () => {
+                // Attendre un tout petit peu avant de lancer la première rotation
+                setTimeout(rotateCarousel, 2000);
+              },
             },
             "-=2"
           )
+          // -------------------------------------------
+
           .from(".hat", {
             duration: 0.5,
             x: -100,
@@ -761,7 +826,19 @@
         // Bouton replay
         const replayBtn = document.getElementById("replay");
         replayBtn.addEventListener("click", () => {
+          // --- STOPPER ET REINITIALISER LE CARROUSEL ---
+          clearTimeout(carouselTimer); // Arrêter le minuteur
+          // Réinitialiser les styles des diapositives pour que la 1ère soit visible
+          gsap.set(".carousel-slide", { opacity: 0, scale: 1 });
+          gsap.set(".carousel-slide:nth-child(1)", { opacity: 1 });
+          // ---------------------------------------------
+
           tl.restart();
+          const song = document.getElementById("hbdSong");
+          if (song) {
+            song.currentTime = 0;
+            song.play().catch((e) => console.log(e));
+          }
         });
       };
     </script>
