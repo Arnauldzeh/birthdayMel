@@ -1,0 +1,435 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.song {
+  visibility: hidden;
+}
+
+.container {
+  height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  visibility: hidden;
+  width: 100vw;
+}
+
+.container>div {
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 20vh;
+}
+
+.one {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  font-family: 'Poppins', sans-serif;
+}
+
+.two {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: 400;
+  color: #f0f0f0;
+  letter-spacing: 0.5px;
+}
+
+.three {
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  color: #ffd700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  font-family: 'Poppins', sans-serif;
+}
+
+.four .text-box {
+  border: 3px solid #4facfe;
+  border-radius: 20px;
+  margin: 0 auto;
+  padding: clamp(15px, 4vw, 25px);
+  position: relative;
+  width: min(600px, 90%);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+.text-box p {
+  margin: 0;
+  text-align: left;
+  color: #2d3748;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.text-box span {
+  visibility: hidden;
+}
+
+.text-box .fake-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border-radius: 12px;
+  bottom: clamp(-45px, -8vw, -55px);
+  color: #fff;
+  padding: clamp(0.5rem, 2.5vw, 0.6rem) clamp(1rem, 4vw, 1.2rem);
+  position: absolute;
+  right: 10px;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  cursor: pointer;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+}
+
+.text-box .fake-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+}
+
+.five p {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  left: 0;
+  position: absolute;
+  right: 0;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.idea-3 strong {
+  border-radius: 10px;
+  display: inline-block;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: #fff;
+  font-weight: 600;
+}
+
+.five .idea-5 {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  color: #ffd700;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.idea-5 span,
+.idea-6 span,
+.wish-hbd {
+  display: block;
+  margin-bottom: 10px;
+  white-space: pre-line;
+  /* ← super important */
+}
+
+.idea-6 span {
+  font-size: clamp(6rem, 20vw, 15rem);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}
+
+.idea-7 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 600;
+  color: #ffffff;
+  padding: 0 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.six {
+  position: relative;
+  top: 10vh;
+  z-index: 1;
+}
+
+.six img {
+  display: inline-block;
+  height: clamp(200px, 40vh, 350px);
+  max-width: 90%;
+  border-radius: 0;
+  border: 6px solid #ffd700;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+  animation: float 3s ease-in-out infinite;
+  object-fit: cover;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.six .hat {
+  left: clamp(35%, 41.5%, 45%);
+  position: absolute;
+  top: clamp(-25%, -35%, -30%);
+  width: clamp(50px, 10vw, 80px);
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+  z-index: 2;
+}
+
+.baloons img {
+  display: inline-block;
+  position: absolute;
+  max-width: clamp(60px, 10vw, 100px);
+}
+
+.baloons img:nth-child(even) {
+  left: -10%;
+}
+
+.baloons img:nth-child(odd) {
+  right: -10%;
+}
+
+.baloons img:nth-child(3n + 0) {
+  left: 30%;
+}
+
+.seven,
+.eight {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+
+.eight svg {
+  left: 0;
+  position: absolute;
+  top: 0;
+  visibility: hidden;
+  width: clamp(20px, 4vw, 25px);
+  z-index: -1;
+}
+
+.eight svg:nth-child(1) {
+  fill: #4facfe;
+  left: 5vw;
+  top: 7vh;
+}
+
+.eight svg:nth-child(2) {
+  fill: #ffd700;
+  left: 35vw;
+  top: 23vh;
+}
+
+.eight svg:nth-child(3) {
+  fill: #00f2fe;
+  left: 23vw;
+  top: 33vh;
+}
+
+.eight svg:nth-child(4) {
+  fill: #667eea;
+  left: 57vw;
+  top: 43vh;
+}
+
+.eight svg:nth-child(5) {
+  fill: #4facfe;
+  left: 7vw;
+  top: 68vh;
+}
+
+.eight svg:nth-child(6) {
+  fill: #ffd700;
+  left: 77vw;
+  top: 42vh;
+}
+
+.eight svg:nth-child(7) {
+  fill: #00f2fe;
+  left: 83vw;
+  top: 68vh;
+}
+
+.eight svg:nth-child(8) {
+  fill: #764ba2;
+  left: 37vw;
+  top: 86vh;
+}
+
+.eight svg:nth-child(9) {
+  fill: #4facfe;
+  left: 87vw;
+  top: 94vh;
+}
+
+.wish-hbd {
+  font-size: clamp(2.5em, 8vw, 4.5em);
+  margin: 0;
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  color: #ffffff;
+  /* La couleur de repli (fallback) : BLANC */
+
+  /* Nouveau dégradé Magenta/Violet pour un meilleur style */
+  background: linear-gradient(135deg, #F953C6 0%, #764BA2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  /* Ombre forte pour la lisibilité sur le fond */
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+#wishText {
+  font-size: 26px;
+  /* Taille du texte plus grande */
+  font-weight: 700;
+  /* Texte en gras */
+  color: #ffffff;
+  /* Blanc bien visible */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+  /* Ombre pour contraste */
+  letter-spacing: 1px;
+  /* Espacement agréable */
+  margin: 6px 0;
+  /* Aération verticale */
+  text-align: center;
+  /* Centrer le texte */
+}
+
+.wish h5 {
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  font-weight: 400;
+  margin: 15px 0 0;
+  color: #ffffff;
+  padding: 0 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.nine p {
+  font-size: clamp(1.2rem, 3.5vw, 2rem);
+  font-weight: 400;
+  color: #ffffff;
+  padding: 0 25px;
+  line-height: 1.7;
+  font-family: 'Inter', sans-serif;
+}
+
+#replay {
+  cursor: pointer;
+  z-index: 3;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  border: none;
+  padding: clamp(0.7rem, 2.5vw, 0.9rem) clamp(1.4rem, 5vw, 1.8rem);
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+#replay:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(79, 172, 254, 0.6);
+}
+
+/* Media Queries améliorées */
+@media screen and (max-width: 768px) {
+  .container>div {
+    top: 15vh;
+  }
+
+  .six {
+    top: 5vh;
+  }
+
+  .four .text-box {
+    border-radius: 15px;
+    padding: clamp(12px, 3vw, 18px);
+  }
+
+  .text-box .fake-btn {
+    right: 8px;
+    bottom: -40px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .text-box .fake-btn {
+    bottom: -35px;
+    right: 5px;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .idea-5 span {
+    display: block;
+  }
+
+  .six .hat {
+    left: 38%;
+    top: -25%;
+  }
+
+  .container>div {
+    top: 12vh;
+  }
+
+  .six img {
+    height: clamp(180px, 35vh, 300px);
+  }
+
+  .baloons img {
+    max-width: clamp(50px, 8vw, 80px);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1400px;
+  }
+
+  .four .text-box {
+    width: min(650px, 80%);
+  }
+}
+
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .container>div {
+    top: 10vh;
+  }
+
+  .six {
+    top: 2vh;
+  }
+
+  .six img {
+    height: clamp(150px, 30vh, 250px);
+  }
+}
